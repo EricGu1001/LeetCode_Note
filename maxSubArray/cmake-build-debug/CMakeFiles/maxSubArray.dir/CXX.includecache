@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/maxSubArray/Solution.cpp
+vector
+C:/Users/msi-user/Desktop/leetcode/maxSubArray/vector
+Solution.h
+C:/Users/msi-user/Desktop/leetcode/maxSubArray/Solution.h
+
+C:/Users/msi-user/Desktop/leetcode/maxSubArray/Solution.h
+vector
+C:/Users/msi-user/Desktop/leetcode/maxSubArray/vector
+

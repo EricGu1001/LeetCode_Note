@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/twosum.cpp
+iostream
+C:/Users/msi-user/Desktop/leetcode/iostream
+stack
+C:/Users/msi-user/Desktop/leetcode/stack
+unordered_map
+C:/Users/msi-user/Desktop/leetcode/unordered_map
+string
+C:/Users/msi-user/Desktop/leetcode/string
+

@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/rotatedDigits/rotatedDigits.cpp
+rotatedDigits.h
+C:/Users/msi-user/Desktop/leetcode/rotatedDigits/rotatedDigits.h
+
+C:/Users/msi-user/Desktop/leetcode/rotatedDigits/rotatedDigits.h
+vector
+C:/Users/msi-user/Desktop/leetcode/rotatedDigits/vector
+string
+C:/Users/msi-user/Desktop/leetcode/rotatedDigits/string
+cmath
+C:/Users/msi-user/Desktop/leetcode/rotatedDigits/cmath
+

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/maxLengthBetweenEqualCharacters/maxLengthBetweenEqualCharacters.cpp
+maxLengthBetweenEqualCharacters.h
+C:/Users/msi-user/Desktop/leetcode/maxLengthBetweenEqualCharacters/maxLengthBetweenEqualCharacters.h
+stdio.h
+C:/Users/msi-user/Desktop/leetcode/maxLengthBetweenEqualCharacters/stdio.h
+string
+C:/Users/msi-user/Desktop/leetcode/maxLengthBetweenEqualCharacters/string
+
+C:/Users/msi-user/Desktop/leetcode/maxLengthBetweenEqualCharacters/maxLengthBetweenEqualCharacters.h
+unordered_map
+C:/Users/msi-user/Desktop/leetcode/maxLengthBetweenEqualCharacters/unordered_map
+algorithm
+C:/Users/msi-user/Desktop/leetcode/maxLengthBetweenEqualCharacters/algorithm
+

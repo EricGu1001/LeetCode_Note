@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/firstBadVersion/firstBad.cpp
+firstBad.h
+C:/Users/msi-user/Desktop/leetcode/firstBadVersion/firstBad.h
+
+C:/Users/msi-user/Desktop/leetcode/firstBadVersion/firstBad.h
+cstdio
+-
+
