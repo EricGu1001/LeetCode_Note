@@ -923,3 +923,46 @@ public:
 };
 ```
 
+## 在LR字符串中交换相邻字符
+
+## 双指针移动+一点脑筋急转弯
+
+```C++
+class Solution {
+public:
+    bool canTransform(string start, string end) {
+        int n = start.size();
+        int i = 0, j = 0;
+        while (true) {
+            while (i < n && start[i] == 'X') ++i;
+            while (j < n && end[j] == 'X') ++j;
+            if (i == n && j == n) return true;
+            if (i == n || j == n || start[i] != end[j]) return false;
+            if (start[i] == 'L' && i < j) return false;
+            if (start[i] == 'R' && i > j) return false;
+            ++i;
+            ++j;
+        }
+    }
+};
+```
+
+## 检查二进制字符串字段
+
+```C++
+class Solution {
+public:
+    bool checkOnesSegment(string s) {
+        int count = 0;
+        for (int i = 0; i < s.size()-1; ++i) {
+            if (s[i] != s[i+1])
+                count++;
+            if (count>1)
+                return false;
+        }
+        return true;
+    }
+};
+
+```
+
