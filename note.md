@@ -810,7 +810,7 @@ public:
 
 简单，字符遍历
 
-```
+```C++，
 class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
@@ -964,5 +964,87 @@ public:
     }
 };
 
+```
+
+## 重建二叉树(前序和中序)
+
+## 递归
+
+![1664790869972](C:\Users\msi-user\AppData\Roaming\Typora\typora-user-images\1664790869972.png)
+
+```c++
+struct TreeNode {
+     int val;
+     TreeNode *left;
+     TreeNode *right;
+     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ };
+class Solution {
+private:
+    unordered_map<int, int> index;
+
+public:
+    TreeNode* myBuildTree(const vector<int>& preorder, const vector<int>& inorder, int preorder_left, int preorder_right, int inorder_left, int inorder_right) {
+        if (preorder_left > preorder_right) {
+            return nullptr;
+        }
+
+        // 前序遍历中的第一个节点就是根节点
+        int preorder_root = preorder_left;
+        // 在中序遍历中定位根节点
+        int inorder_root = index[preorder[preorder_root]];
+
+        // 先把根节点建立出来
+        TreeNode* root = new TreeNode(preorder[preorder_root]);
+        // 得到左子树中的节点数目
+        int size_left_subtree = inorder_root - inorder_left;
+        // 递归地构造左子树，并连接到根节点
+        // 先序遍历中「从 左边界+1 开始的 size_left_subtree」个元素就对应了中序遍历中「从 左边界 开始到 根节点定位-1」的元素
+        root->left = myBuildTree(preorder, inorder, preorder_left + 1, preorder_left + size_left_subtree, inorder_left, inorder_root - 1);
+        // 递归地构造右子树，并连接到根节点
+        // 先序遍历中「从 左边界+1+左子树节点数目 开始到 右边界」的元素就对应了中序遍历中「从 根节点定位+1 到 右边界」的元素
+        root->right = myBuildTree(preorder, inorder, preorder_left + size_left_subtree + 1, preorder_right, inorder_root + 1, inorder_right);
+        return root;
+    }
+
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        int n = preorder.size();
+        // 构造哈希映射，帮助我们快速定位根节点
+        for (int i = 0; i < n; ++i) {
+            index[inorder[i]] = i;
+        }
+        return myBuildTree(preorder, inorder, 0, n - 1, 0, n - 1);
+    }
+};
+```
+
+## 从中序与后序遍历序列构造二叉树
+
+与上题思路一致，可作po上题的练手
+
+```C++
+class Solution {
+private:
+    unordered_map<int,int> index;
+public:
+    TreeNode* buildMyTree(const vector<int>& inorder,const vector<int>& postorder,int inorder_left,int inorder_right,int postorder_left,int postoder_right){
+        if (postorder_left>postoder_right)
+            return nullptr;
+        int postorder_root = postorder[postoder_right];
+        int inorder_root = index[postorder_root];
+        TreeNode* root = new TreeNode(inorder[inorder_root]);
+        int left_subtree = inorder_root - inorder_left;
+        root -> left = buildMyTree(inorder,postorder,inorder_left,inorder_left + left_subtree-1,postorder_left,postorder_left + left_subtree-1);
+        root -> right = buildMyTree(inorder,postorder,inorder_root+1,inorder_right,postorder_left+left_subtree,postoder_right-1);
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        int n = inorder.size();
+        for (int i = 0; i < n; ++i) {
+            index[inorder[i]] = i;
+        }
+        return buildMyTree(inorder,postorder,0,n-1,0,n-1);
+    }
+};
 ```
 
