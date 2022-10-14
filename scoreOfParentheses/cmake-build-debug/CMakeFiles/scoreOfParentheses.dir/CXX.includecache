@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/scoreOfParentheses/scoreOfParentheses.cpp
+scoreOfParentheses.h
+C:/Users/msi-user/Desktop/leetcode/scoreOfParentheses/scoreOfParentheses.h
+
+C:/Users/msi-user/Desktop/leetcode/scoreOfParentheses/scoreOfParentheses.h
+string
+C:/Users/msi-user/Desktop/leetcode/scoreOfParentheses/string
+stack
+C:/Users/msi-user/Desktop/leetcode/scoreOfParentheses/stack
+

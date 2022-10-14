@@ -1,0 +1,3 @@
+C:/Users/msi-user/Desktop/leetcode/reverseList/cmake-build-debug/CMakeFiles/reverseList.dir
+C:/Users/msi-user/Desktop/leetcode/reverseList/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/msi-user/Desktop/leetcode/reverseList/cmake-build-debug/CMakeFiles/rebuild_cache.dir

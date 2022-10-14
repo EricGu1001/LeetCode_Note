@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/nextPermutation/nextPermutation.cpp
+stdio.h
+C:/Users/msi-user/Desktop/leetcode/nextPermutation/stdio.h
+nextPermutation.h
+C:/Users/msi-user/Desktop/leetcode/nextPermutation/nextPermutation.h
+
+C:/Users/msi-user/Desktop/leetcode/nextPermutation/nextPermutation.h
+vector
+C:/Users/msi-user/Desktop/leetcode/nextPermutation/vector
+algorithm
+C:/Users/msi-user/Desktop/leetcode/nextPermutation/algorithm
+

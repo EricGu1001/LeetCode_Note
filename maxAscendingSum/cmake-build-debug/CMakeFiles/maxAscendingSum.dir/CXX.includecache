@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/maxAscendingSum/maxAscendingSum.cpp
+maxAscendingSum.h
+C:/Users/msi-user/Desktop/leetcode/maxAscendingSum/maxAscendingSum.h
+
+C:/Users/msi-user/Desktop/leetcode/maxAscendingSum/maxAscendingSum.h
+vector
+C:/Users/msi-user/Desktop/leetcode/maxAscendingSum/vector
+

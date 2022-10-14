@@ -759,7 +759,7 @@ public:
 
 ```
 
-### 旋转数字
+## 旋转数字
 
 ```c++
 class Solution {
@@ -925,7 +925,7 @@ public:
 
 ## 在LR字符串中交换相邻字符
 
-## 双指针移动+一点脑筋急转弯
+### 双指针移动+一点脑筋急转弯
 
 ```C++
 class Solution {
@@ -968,7 +968,7 @@ public:
 
 ## 重建二叉树(前序和中序)
 
-## 递归
+### 递归
 
 ![1664790869972](C:\Users\msi-user\AppData\Roaming\Typora\typora-user-images\1664790869972.png)
 
@@ -1020,7 +1020,7 @@ public:
 
 ## 从中序与后序遍历序列构造二叉树
 
-与上题思路一致，可作po上题的练手
+### 与上题思路一致，可作po上题的练手
 
 ```C++
 class Solution {
@@ -1044,6 +1044,371 @@ public:
             index[inorder[i]] = i;
         }
         return buildMyTree(inorder,postorder,0,n-1,0,n-1);
+    }
+};
+```
+
+## 子域名访问计数
+
+### 思路不难，记住stirng的常用成员函数，以及答案的输出方式
+
+```C++
+class Solution {
+public:
+    vector<string> subdomainVisits(vector<string>& cpdomains) {
+        unordered_map<string,int> map;
+        vector<string> ans;
+        for(auto &&cpdomain:cpdomains){
+            int space = cpdomain.find(' ');
+            int count = stoi(cpdomain.substr(0,space));
+            string domain = cpdomain.substr(space+1);
+            map[domain] += count;
+            for (int i = 0; i < domain.size(); ++i) {
+                if(domain[i] == '.'){
+                    string subdomain = domain.substr(i+1);
+                    map[subdomain] += count;
+                }
+            }
+        }
+        for (auto &&[subdomain,count] : map) {
+            ans.emplace_back(to_string(count) + " " + subdomain);
+        }
+        return ans;
+    }
+};
+```
+
+## 反转链表
+
+### 迭代
+
+```C++
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = nullptr;
+        ListNode* curr = head;
+        while (curr) {
+            ListNode* next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+};
+```
+
+### 递归(理解)
+
+```C++
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(!head ||!head->next)
+            return head;
+        ListNode* temp = reverseList(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+        return temp;
+    }
+};
+```
+
+## 最大升序子数组和
+
+```C++
+class Solution {
+public:
+    int maxAscendingSum(vector<int>& nums) {
+        int n = nums.size();
+        if(n == 1)
+            return nums[0];
+        int maxAns = 0;
+        int curAnswer = nums[0];
+        for (int i = 1; i < n; ++i) {
+            if (nums[i] > nums[i-1]){
+                curAnswer += nums[i];
+                maxAns = max (maxAns,curAnswer);
+            } else{
+                maxAns = max (maxAns,curAnswer);
+                curAnswer = nums[i];
+            }
+        }
+        return maxAns;
+    }
+};
+```
+
+## 三数之和
+
+### 排序+双指针
+
+```C++
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        // 枚举 a
+        for (int first = 0; first < n; ++first) {
+            // 需要和上一次枚举的数不相同
+            if (first > 0 && nums[first] == nums[first - 1]) {
+                continue;
+            }
+            // c 对应的指针初始指向数组的最右端
+            int third = n - 1;
+            int target = -nums[first];
+            // 枚举 b
+            for (int second = first + 1; second < n; ++second) {
+                // 需要和上一次枚举的数不相同
+                if (second > first + 1 && nums[second] == nums[second - 1]) {
+                    continue;
+                }
+                // 需要保证 b 的指针在 c 的指针的左侧
+                while (second < third && nums[second] + nums[third] > target) {
+                    --third;
+                }
+                // 如果指针重合，随着 b 后续的增加
+                // 就不会有满足 a+b+c=0 并且 b<c 的 c 了，可以退出循环
+                if (second == third) {
+                    break; 
+                }
+                if (nums[second] + nums[third] == target) {
+                    ans.push_back({nums[first], nums[second], nums[third]});
+                }
+            }
+        }
+        return ans;
+    }
+};
+```
+
+## 电话号码的数字组合
+
+### 循环做不了，回溯
+
+```C++
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> combinations;
+        if (digits.empty()) {
+            return combinations;
+        }
+        unordered_map<char, string> phoneMap{
+            {'2', "abc"},
+            {'3', "def"},
+            {'4', "ghi"},
+            {'5', "jkl"},
+            {'6', "mno"},
+            {'7', "pqrs"},
+            {'8', "tuv"},
+            {'9', "wxyz"}
+        };
+        string combination;
+        backtrack(combinations, phoneMap, digits, 0, combination);
+        return combinations;
+    }
+
+    void backtrack(vector<string>& combinations, const unordered_map<char, string>& phoneMap, const string& digits, int index, string& combination) {
+        if (index == digits.length()) {
+            combinations.push_back(combination);
+        } else {
+            char digit = digits[index];
+            const string& letters = phoneMap.at(digit);
+            for (const char& letter: letters) {
+                combination.push_back(letter);
+                backtrack(combinations, phoneMap, digits, index + 1, combination);
+                combination.pop_back();
+            }
+        }
+    }
+};
+```
+
+### 深搜
+
+## 括号的分数
+
+### 栈的运用
+
+我的代码
+
+```C++
+class Solution {
+public:
+    int scoreOfParentheses(string s) {
+        stack<char> stack;
+        int res;
+        for (auto ch:s) {
+            res = 0;
+            if(ch == '('){
+                stack.push(ch);
+            }
+
+            else{
+                if(stack.top() == '('){
+                    stack.pop();
+                    stack.push('1');
+                }
+                else{
+                    while (stack.top() != '('){
+                        res += stack.top()-'0';
+                        stack.pop();
+                    }
+                    res = res*2;
+                    char b = (char)res;
+                    stack.pop();
+                    stack.push(b);
+                }
+            }
+        }
+        res = 0;
+        while (!stack.empty()){
+            res += stack.top() - '0';
+            stack.pop();
+        }
+        return res;
+    }
+};
+
+```
+
+问题：int转char的时候，如果是两位数有问题
+
+标答
+
+```C++
+class Solution {
+public:
+    int scoreOfParentheses(string s) {
+        stack<int> st;
+        st.push(0);
+        for (auto c : s) {
+            if (c == '(') {
+                st.push(0);
+            } else {
+                int v = st.top();
+                st.pop();
+                st.top() += max(2 * v, 1);
+            }
+        }
+        return st.top();
+    }
+};
+```
+
+## 删除链表的倒数第 N 个结点
+
+### 求解链表的长度然后遍历
+
+```C++
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(!head)
+            return nullptr;
+        int count = 1;
+        ListNode * curNode = head;
+        ListNode * curNode_2 = head;
+        while (head->next){
+                head = head ->next;
+                count++;
+        }
+        if(count-n == 0){
+            if(curNode->next){
+                curNode =curNode->next;
+                return curNode;
+            }
+            return nullptr;
+        } else{
+            for (int i = 0; i < count - n-1; ++i) {
+                curNode_2 = curNode_2->next;
+            }
+            curNode_2->next = curNode_2->next->next;
+        }
+        return curNode;
+    }
+};
+```
+
+### 利用栈，逆序输出想到用栈
+
+```C++
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* dummy = new ListNode(0, head);
+        stack<ListNode*> stk;
+        ListNode* cur = dummy;
+        while (cur) {
+            stk.push(cur);
+            cur = cur->next;
+        }
+        for (int i = 0; i < n; ++i) {
+            stk.pop();
+        }
+        ListNode* prev = stk.top();
+        prev->next = prev->next->next;
+        ListNode* ans = dummy->next;
+        delete dummy;
+        return ans;
+    }
+};
+```
+
+### 双指针
+
+```C++
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* dummy = new ListNode(0, head);
+        ListNode* first = head;
+        ListNode* second = dummy;
+        for (int i = 0; i < n; ++i) {
+            first = first->next;
+        }
+        while (first) {
+            first = first->next;
+            second = second->next;
+        }
+        second->next = second->next->next;
+        ListNode* ans = dummy->next;
+        delete dummy;
+        return ans;
+    }
+};
+```
+
+## 括号生成
+
+
+
+## 下一个排列
+
+### 怎样尽量小的增大数字
+
+```C++
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int n = nums.size();
+        for (int i = n-2; i >= 0; --i) {
+            if (nums[i] < nums[i+1]){
+                for (int j = n-1; j >= 0 ; --j) {
+                    if(nums[j] > nums[i]){
+                        swap(nums[i],nums[j]);
+                        reverse(nums.begin()+i+1,nums.end());
+                        return;
+                    }
+                }
+            }
+        }
+        reverse(nums.begin(),nums.end());
+        return;
     }
 };
 ```
