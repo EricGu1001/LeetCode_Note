@@ -855,7 +855,7 @@ public:
 
 动态规划
 
-```
+```C++
 class Solution {
 public:
     int nthUglyNumber(int n) {
@@ -1020,7 +1020,7 @@ public:
 
 ## 从中序与后序遍历序列构造二叉树
 
-### 与上题思路一致，可作po上题的练手
+### 与上题思路一致，可作上题的练手
 
 ```C++
 class Solution {
@@ -1409,6 +1409,251 @@ public:
         }
         reverse(nums.begin(),nums.end());
         return;
+    }
+};
+```
+
+## 用栈操作构建数组
+
+### 较简单
+
+```C++
+class Solution {
+public:
+    vector<string> buildArray(vector<int>& target, int n) {
+        vector<string> ans;
+        if (target[0] != 1){
+            for (int i = 0; i < target[0]-1; ++i) {
+                ans.push_back("Push");
+                ans.push_back("Pop");
+            }
+            ans.push_back("Push");
+        } else{
+            ans.push_back("Push");
+        }
+        for (int i = 1; i < target.size(); ++i) {
+            //元素发生间隔
+            if (target[i] != target[i-1]+1){
+                for (int j = 0; j < target[i]-target[i-1]-1; ++j) {
+                    ans.push_back("Push");
+                    ans.push_back("Pop");
+                }
+                ans.push_back("Push");
+            } else{
+             ans.push_back("Push");   
+            }
+        }
+        return ans;
+    }
+};
+```
+
+# 搜索旋转排序数组
+
+### 二分查找
+
+对于两个局部有序的数组，通过二分查找一定可以将数组分为完全有序的一半以及部分有序的另外一半
+
+```C++
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int n = (int)nums.size();
+        if (!n) {
+            return -1;
+        }
+        if (n == 1) {
+            return nums[0] == target ? 0 : -1;
+        }
+        int l = 0, r = n - 1;
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            if (nums[mid] == target) return mid;
+            if (nums[0] <= nums[mid]) {//这部分数组为有序
+                if (nums[0] <= target && target < nums[mid]) {
+                    r = mid - 1;
+                } else {
+                    l = mid + 1;
+                }
+            } else {
+                if (nums[mid] < target && target <= nums[n - 1]) {//这部分数组为有序，且target在范围内
+                    l = mid + 1;
+                } else {
+                    r = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
+};
+```
+
+## 可能的二分法
+
+### 深度优先搜索（详细注释）
+
+```C++
+class Solution {
+public:
+  //存储分组的类型
+    vector<int> color;
+    //存储每个人dislike的人
+    vector<vector<int>> count;
+    bool possibleBipartition(int n,vector<vector<int>>& dislikes){
+        //初始化每一个人的初始分组为0
+        color = vector<int>(n+1,0);
+        count = vector<vector<int>>(n+1);
+        for(auto& dislike:dislikes){
+            count[dislike[0]].push_back(dislike[1]);
+            count[dislike[1]].push_back(dislike[0]);
+        }
+   		//开始遍历每个人
+        for(int i=1;i<=n;i++){
+			//如果没分组且分组后有冲突
+            if(color[i] == 0 && !dfs(i,1)){
+                return false;
+            }
+        }
+        return true;
+    }
+    bool dfs(int color,int cur_color){
+        //分组
+        color[cur] = cur_color;
+        //遍历不喜欢的人
+        for(auto& node:count[color]){
+            //如果分了组且和当前不喜欢的人在一组，发生冲突
+            if(color[node] && color[node] == curcolor){
+                return false;
+            }
+            //如果未分组且分组后有冲突
+            if(!color[node] && !dfs(node,3 ^ cur_color)){
+                return false;
+            }
+        }
+        return true;W
+    }
+};
+```
+
+## 在排序数组中查找元素的第一个和最后一个位置
+
+## 二分查找
+
+```c++
+class Solution { 
+public:
+    int binarySearch(vector<int>& nums, int target, bool lower) {
+        int left = 0, right = (int)nums.size() - 1, ans = (int)nums.size();
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] > target || (lower && nums[mid] >= target)) {
+                right = mid - 1;
+                ans = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return ans;
+    }
+
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int leftIdx = binarySearch(nums, target, true);
+        int rightIdx = binarySearch(nums, target, false) - 1;
+        if (leftIdx <= rightIdx && rightIdx < nums.size() && nums[leftIdx] == target && nums[rightIdx] == target) {
+            return vector<int>{leftIdx, rightIdx};
+        } 
+        return vector<int>{-1, -1};
+    }
+};
+```
+
+## 无法吃午餐的学生数量
+
+## 模拟
+
+```C++
+class Solution {
+public:
+    int countStudents(vector<int>& students, vector<int>& sandwiches) {
+        int s1 = accumulate(students.begin(), students.end(), 0);
+        int s0 = students.size() - s1;
+        for (int i = 0; i < sandwiches.size(); i++) {
+            if (sandwiches[i] == 0 && s0 > 0) {
+                s0--;
+            } else if (sandwiches[i] == 1 && s1 > 0) {
+                s1--;
+            } else {
+                break;
+            }
+        }
+        return s0 + s1;
+    }
+};
+```
+
+## 第K个语法符号
+
+### 递归
+
+```C++
+class Solution {
+public:
+    int kthGrammar(int n, int k) {
+        if(n == 1 && k == 1)
+            return 0;
+        if(k%2 == 1){
+            return kthGrammar(n-1,(k+1)/2);
+        } else {
+            return kthGrammar(n-1,k/2) == 0?1:0;
+        }
+    }
+};
+```
+
+## 在排序数组中查找元素的第一个和最后一个位置
+
+### 二分
+
+和在排序数组中查找元素第一个和最后一个位置一样
+
+```C++
+class Solution {
+    int twoDivideSearch(vector<int>& nums, int target, bool flag)
+    {
+        int left = 0, right = nums.size() - 1, mid, res = -1;
+        while(left <= right)
+        {
+            mid = left + (right - left) / 2;
+            if(nums[mid] == target)
+            {
+                res = mid;
+                if(flag)
+                    right = mid - 1; //flag为真，求左区间
+                else
+                    left = mid + 1; //flag为假，求右区间
+            }
+            else if(nums[mid] < target)
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+
+        return res;
+    }
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int left = twoDivideSearch(nums, target, true);
+        int right = twoDivideSearch(nums, target, false);
+        if(nums.empty() || (left == -1 && right == -1))
+            return vector<int>{-1, -1};
+        else if(left == -1)
+            left = right;
+        else if(right == -1)
+            right = left;
+        else
+            ;
+
+        return vector<int>{left, right};
     }
 };
 ```

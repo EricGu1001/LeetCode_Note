@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/possibleBipartition/possibleBipartition.cpp
+possibleBipartition.h
+C:/Users/msi-user/Desktop/leetcode/possibleBipartition/possibleBipartition.h
+
+C:/Users/msi-user/Desktop/leetcode/possibleBipartition/possibleBipartition.h
+vector
+C:/Users/msi-user/Desktop/leetcode/possibleBipartition/vector
+unordered_map
+C:/Users/msi-user/Desktop/leetcode/possibleBipartition/unordered_map
+

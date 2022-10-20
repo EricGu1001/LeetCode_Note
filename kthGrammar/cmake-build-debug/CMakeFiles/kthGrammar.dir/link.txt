@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\kthGrammar.dir/objects.a
+C:\x86_64-8.1.0-release-posix-sjlj-rt_v6-rev0\mingw64\bin\ar.exe cr CMakeFiles\kthGrammar.dir/objects.a @CMakeFiles\kthGrammar.dir\objects1.rsp
+C:\x86_64-8.1.0-release-posix-sjlj-rt_v6-rev0\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\kthGrammar.dir/objects.a -Wl,--no-whole-archive -o kthGrammar.exe -Wl,--out-implib,libkthGrammar.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\kthGrammar.dir\linklibs.rsp

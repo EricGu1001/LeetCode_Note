@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/countStudents/countStudents.cpp
+countStudents.h
+C:/Users/msi-user/Desktop/leetcode/countStudents/countStudents.h
+
+C:/Users/msi-user/Desktop/leetcode/countStudents/countStudents.h
+vector
+C:/Users/msi-user/Desktop/leetcode/countStudents/vector
+stack
+C:/Users/msi-user/Desktop/leetcode/countStudents/stack
+queue
+C:/Users/msi-user/Desktop/leetcode/countStudents/queue
+
