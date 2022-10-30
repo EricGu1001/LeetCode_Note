@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/reversePrint/reversePrint.cpp
+reversePrint.h
+C:/Users/msi-user/Desktop/leetcode/reversePrint/reversePrint.h
+
+C:/Users/msi-user/Desktop/leetcode/reversePrint/reversePrint.h
+vector
+C:/Users/msi-user/Desktop/leetcode/reversePrint/vector
+

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/merge/merge.cpp
+merge.h
+C:/Users/msi-user/Desktop/leetcode/merge/merge.h
+
+C:/Users/msi-user/Desktop/leetcode/merge/merge.h
+vector
+C:/Users/msi-user/Desktop/leetcode/merge/vector
+stack
+C:/Users/msi-user/Desktop/leetcode/merge/stack
+

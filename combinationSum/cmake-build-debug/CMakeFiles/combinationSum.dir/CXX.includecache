@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/combinationSum/combinationSum.cpp
+combinationSum.h
+C:/Users/msi-user/Desktop/leetcode/combinationSum/combinationSum.h
+
+C:/Users/msi-user/Desktop/leetcode/combinationSum/combinationSum.h
+vector
+C:/Users/msi-user/Desktop/leetcode/combinationSum/vector
+

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/minPathSum/minPathSum.cpp
+minPathSum.h
+C:/Users/msi-user/Desktop/leetcode/minPathSum/minPathSum.h
+
+C:/Users/msi-user/Desktop/leetcode/minPathSum/minPathSum.h
+vector
+C:/Users/msi-user/Desktop/leetcode/minPathSum/vector
+algorithm
+C:/Users/msi-user/Desktop/leetcode/minPathSum/algorithm
+

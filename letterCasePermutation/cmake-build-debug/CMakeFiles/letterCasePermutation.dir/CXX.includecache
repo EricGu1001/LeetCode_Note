@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/letterCasePermutation/letterCasePermutation.cpp
+letterCasePermutation.h
+C:/Users/msi-user/Desktop/leetcode/letterCasePermutation/letterCasePermutation.h
+
+C:/Users/msi-user/Desktop/leetcode/letterCasePermutation/letterCasePermutation.h
+string
+C:/Users/msi-user/Desktop/leetcode/letterCasePermutation/string
+vector
+C:/Users/msi-user/Desktop/leetcode/letterCasePermutation/vector
+

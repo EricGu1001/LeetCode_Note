@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/canJump/canJump.cpp
+canJump.h
+C:/Users/msi-user/Desktop/leetcode/canJump/canJump.h
+
+C:/Users/msi-user/Desktop/leetcode/canJump/canJump.h
+vector
+-
+

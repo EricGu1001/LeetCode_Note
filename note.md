@@ -1569,7 +1569,7 @@ public:
 
 ## 无法吃午餐的学生数量
 
-## 模拟
+### 模拟
 
 ```C++
 class Solution {
@@ -1654,6 +1654,426 @@ public:
             ;
 
         return vector<int>{left, right};
+    }
+};
+```
+
+## 股票价格跨度
+
+### 单调栈
+
+ 求「上/下 」一个更 「大/小」 元素，立即推 -> 单调栈 
+
+单调栈即维护一个栈中元素单调下降或者单调上升的栈，用于求第一个比当前数小或大的数
+
+```C++
+class StockSpanner {
+public:
+    StockSpanner() {
+        this->stk.emplace(-1, INT_MAX);
+        this->idx = -1;
+    }
+
+    int next(int price) {
+        idx++;
+        while (price >= stk.top().second){
+            stk.pop();
+        }
+        int ret = idx - stk.top().first;
+        stk.emplace(pair<int,int>(idx,price));
+        return ret;
+    }
+
+private:
+    stack<pair<int, int>> stk;
+    int idx;
+};
+```
+
+## 组合总和
+
+### 深搜回溯
+
+```C++
+class Solution {
+public:
+class Solution {
+public:
+    void dfs(vector<int>& candidates,int target,vector<vector<int>>& ans,vector<int>& combine,int idx){
+        if (idx == candidates.size()){
+            return;
+        }
+        if (target == 0){
+            ans.emplace_back(combine);
+            return;
+        }
+        //跳过当前数
+        dfs(candidates,target,ans,combine,idx+1);
+        if (target - candidates[idx] >= 0){
+            combine.emplace_back(candidates[idx]);
+            dfs(candidates,target-candidates[idx],ans,combine,idx);
+        }
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+        vector<int> combine;
+        dfs(candidates,target,ans,combine,0);
+        return ans;
+    }
+};
+```
+
+
+
+## 全排列
+
+### 深搜回溯
+
+```C++
+class Solution {
+public:
+    void dfs(vector<vector<int>>& ans,vector<int>& path,vector<int>& nums,vector<int> flag){
+        if (path.size() == nums.size()) {
+            ans.push_back(path);
+            return;
+        }
+        for (int i = 0; i < nums.size(); ++i) {
+            if (flag[i] == 1)
+                continue;
+            path.push_back(nums[i]);
+            flag[i] = 1;
+            dfs(ans,path,nums,flag);
+            path.pop_back();
+            flag[i] = 0;
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<int> path;
+        vector<vector<int>> ans;
+        int n = nums.size();
+        vector<int> flag(n,0);
+        dfs(ans,path,nums,flag);
+        return ans;
+    }
+};
+```
+
+## 合并区间
+
+### 先排下序
+
+```C++
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        if (intervals.size() == 0) {
+            return {};
+        }
+        sort(intervals.begin(), intervals.end());
+        vector<vector<int>> merged;
+        for (int i = 0; i < intervals.size(); ++i) {
+            int L = intervals[i][0], R = intervals[i][1];
+            if (!merged.size() || merged.back()[1] < L) {
+                merged.push_back({L, R});
+            }
+            else {
+                merged.back()[1] = max(merged.back()[1], R);
+            }
+        }
+        return merged;
+    }
+};
+```
+
+自己写的解法过于繁琐
+
+## 交替合并字符串
+
+### 简单双指针
+
+```C++
+class Solution {
+public:
+    string mergeAlternately(string word1, string word2) {
+        string ans = "";
+        int minLen = min(word1.length(),word2.length());
+        for (int i = 0; i < minLen; ++i) {
+            ans+=word1[i];
+            ans+=word2[i];
+        }
+        if (word1.length() == word2.length())
+            return ans;
+        if (word1.length() < word2.length()){
+            for (int i = minLen; i < word2.length(); ++i) {
+                ans += word2[i];
+            }
+        } else {
+            for (int i = minLen; i < word1.length(); ++i) {
+                ans += word1[i];
+            }
+        }
+        return ans;
+    }
+};
+```
+
+## 不同路径
+
+### 动态规划
+
+```C++
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        vector<vector<int>> f(m, vector<int>(n));
+        for (int i = 0; i < m; ++i) {
+            f[i][0] = 1;
+        }
+        for (int j = 0; j < n; ++j) {
+            f[0][j] = 1;
+        }
+        for (int i = 1; i < m; ++i) {
+            for (int j = 1; j < n; ++j) {
+                f[i][j] = f[i - 1][j] + f[i][j - 1];
+            }
+        }
+        return f[m - 1][n - 1];
+    }
+};
+```
+
+## 分割数组
+
+### 模拟
+
+从左向右遍历分界点。当「左边数组的最大值」小于等于「右边数组的最小值」时，该分界点即为答案。
+
+提前算出每个分界点右边数组的最小值，存在数组 Rmin 中。这样在遍历分界点时，可以 O(1) 时间得到该分界点右边数组的最小值。
+
+```C++
+class Solution {
+public:
+    int partitionDisjoint(vector<int>& nums) {
+        int n = nums.size();
+        int res = 0;
+
+        // Rmin[i] 为区间 [i, n] 中的最小值
+        vector<int> Rmin(n);
+        Rmin[n - 1] = nums[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            Rmin[i] = min(Rmin[i + 1], nums[i]);
+        }
+
+        int Lmax = 0;
+        for (int i = 0; i < n - 1; i++) {
+            Lmax = max(Lmax, nums[i]);
+            // 当「左边数组的最大值」小于等于「右边数组的最小值」时返回
+            if (Lmax <= Rmin[i + 1]) {
+                res = i;
+                break;
+            }
+        } 
+        return res + 1; 
+    }
+};
+```
+
+## 最短的桥
+
+### DFS+BFS
+
+![1666666766879](C:\Users\msi-user\AppData\Roaming\Typora\typora-user-images\1666666766879.png)
+
+```C++
+class Solution {
+public:
+    void dfs(int x, int y, vector<vector<int>>& grid, queue<pair<int, int>> &qu) {
+        if (x < 0 || y < 0 || x >= grid.size() || y >= grid[0].size() || grid[x][y] != 1) {
+            return;
+        }
+        qu.emplace(x, y);
+        grid[x][y] = -1;
+        dfs(x - 1, y, grid, qu);
+        dfs(x + 1, y, grid, qu);
+        dfs(x, y - 1, grid, qu);
+        dfs(x, y + 1, grid, qu);
+    }
+
+    int shortestBridge(vector<vector<int>>& grid) {
+        int n = grid.size();
+        vector<vector<int>> dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 1) {
+                    queue<pair<int, int>> qu;
+                    dfs(i, j, grid, qu);
+                    int step = 0;
+                    while (!qu.empty()) {
+                        int sz = qu.size();
+                        for (int i = 0; i < sz; i++) {
+                            auto [x, y] = qu.front();
+                            qu.pop();
+                            for (int k = 0; k < 4; k++) {
+                                int nx = x + dirs[k][0];
+                                int ny = y + dirs[k][1];
+                                if (nx >= 0 && ny >= 0 && nx < n && ny < n) {
+                                    if (grid[nx][ny] == 0) {
+                                        qu.emplace(nx, ny);
+                                        grid[nx][ny] = -1;
+                                    } else if (grid[nx][ny] == 1) {
+                                        return step;
+                                    }
+                                }
+                            }
+                        }
+                        step++;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+};
+```
+
+## 最小路径和
+
+## 动态规划
+
+```C++
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        int m=grid.size();
+        int n=grid[0].size();
+        for(int i=1;i<m;i++){
+            grid[i][0]+=grid[i-1][0];
+        }
+        for(int i=1;i<n;i++){
+            grid[0][i]+=grid[0][i-1];
+        }
+        for(int i=1;i<m;i++){
+            for(int j=1;j<n;j++){
+                grid[i][j]+=min(grid[i-1][j],grid[i][j-1]);
+            }
+        }
+        return grid[m-1][n-1];
+    }
+};
+```
+
+## 数组元素积的符号
+
+### 遍历
+
+```C++
+class Solution {
+public:
+    int count_2 = 0;
+    int arraySign(vector<int>& nums) {
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums[i] == 0)
+                return 0;
+            if (nums[i] < 0)
+                count_2 ++;
+        }
+        if (count_2%2 == 1)
+            return -1;
+        return 1;
+    }
+
+};
+```
+
+## 从尾到头打印链表
+
+```C++
+class Solution {
+public:
+    vector<int> reversePrint(ListNode* head) {
+        vector<int> ans;
+        while (head){
+            ans.push_back(head->val);
+            head = head -> next;
+        }
+        vector<int> reans;
+        for (auto it = ans.rbegin();it != ans.rend();it++) {
+            reans.push_back(*it);
+        }
+        return reans;
+    }
+};
+```
+
+## 子数组的最小值之和
+
+### 单调栈
+
+```C++
+class Solution {
+public:
+    int sumSubarrayMins(vector<int>& arr) {
+        vector<int> allSubs;
+        int n = arr.size();
+        stack<int> upStack;
+        vector<int> left(n),right(n);
+        for (int i = 0; i < n; i++) {
+            while (!upStack.empty() && arr[i] <= arr[upStack.top()]){
+                upStack.pop();
+            }
+            left[i] = i - (upStack.empty()?-1:upStack.top());
+            upStack.push(i);
+        }
+        while(!upStack.empty()) upStack.pop();
+        for (int i = n-1; i >= 0; --i) {
+            while (!upStack.empty() && arr[i] < arr[upStack.top()]){
+                upStack.pop();
+            }
+            right[i] = (upStack.empty()?n:upStack.top()) - i;
+            upStack.push(i);
+        }
+        long long ans = 0;
+        long long mod = 1e9 + 7;
+        for (int i = 0; i < n; i++) {
+            ans = (ans + (long long)left[i] * right[i] * arr[i]) % mod;
+        }
+        return ans;
+    }
+};
+```
+
+## 字母大小写全排列
+
+### 深搜+回溯
+
+```C++
+class Solution {
+public:
+    void dfs(vector<string>& ans,string s,string path,int id){
+        if (path.size() == s.length() || id == s.length()){
+            ans.push_back(path);
+            return;
+        }
+        if (('a'<= s[id] && 'z' >= s[id])||('A' <= s[id] && 'Z'>= s[id])){
+            //大写该字母
+            string temp = path;
+            path += toupper(s[id]);
+            dfs(ans,s,path,id+1);
+            path = temp;
+            //不大写该字母
+            path += tolower(s[id]);
+            dfs(ans,s,path,id+1);
+        } else {
+            path +=s[id];
+            dfs(ans,s,path,id+1);
+        }
+    }
+    vector<string> letterCasePermutation(string s) {
+        vector<string> ans;
+        string path;
+        dfs(ans,s,path,0);
+        return ans;
     }
 };
 ```
