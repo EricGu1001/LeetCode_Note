@@ -559,7 +559,6 @@ public:
 ```C++
 class Solution {
 public:
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
     TreeNode* ans;
     bool dfs(TreeNode* root, TreeNode* p, TreeNode* q){
         if(root == nullptr) return false;
@@ -574,7 +573,6 @@ public:
             dfs(root, p, q);
             return ans;
         }
-    }
 };
 ```
 
@@ -2074,6 +2072,168 @@ public:
         string path;
         dfs(ans,s,path,0);
         return ans;
+    }
+};
+```
+
+## 神奇字符串
+
+双指针
+
+```C++
+class Solution {
+public:
+    int magicalString(int n) {
+        if (n < 4) {
+            return 1;
+        }
+        string s(n, '0');
+        s[0] = '1', s[1] = '2', s[2] = '2';
+        int res = 1;
+        int i = 2;
+        int j = 3;
+        while (j < n) {
+            int size = s[i] - '0';
+            int num = 3 - (s[j - 1] - '0');
+            while (size > 0 && j < n) {
+                s[j] = '0' + num;
+                if (num == 1) {
+                    ++res;
+                }
+                ++j;
+                --size;
+            }
+            ++i;
+        }
+        return res;
+    }
+};
+```
+
+## 整数拆分
+
+### 动态规划
+
+![1667387517095](C:\Users\msi-user\AppData\Roaming\Typora\typora-user-images\1667387517095.png)
+
+状态转移方程
+
+![1667387496484](C:\Users\msi-user\AppData\Roaming\Typora\typora-user-images\1667387496484.png)
+
+```C++
+class Solution {
+public:
+    int integerBreak(int n) {
+        vector <int> dp(n + 1);
+        for (int i = 2; i <= n; i++) {
+            int curMax = 0;
+            for (int j = 1; j < i; j++) {
+                curMax = max(curMax, max(j * (i - j), j * dp[i - j]));
+            }
+            dp[i] = curMax;
+        }
+        return dp[n];
+    }
+};
+```
+
+## 最大重复子串
+
+### 动态规划
+
+```C++
+
+```
+
+## 数值的整数次方
+
+### 快速幂
+
+```C++
+class Solution {
+public:
+    double quickMul(double x, long long N) {
+        if (N == 0) {
+            return 1.0;
+        }
+        double y = quickMul(x, N / 2);
+        return N % 2 == 0 ? y * y : y * y * x;
+    }
+
+    double myPow(double x, int n) {
+        long long N = n;
+        return N >= 0 ? quickMul(x, N) : 1.0 / quickMul(x, -N);
+    }
+};
+```
+
+## 分发糖果
+
+### 贪心，两次遍历
+
+![1667566246056](C:\Users\msi-user\AppData\Roaming\Typora\typora-user-images\1667566246056.png)
+
+```C++
+class Solution {
+public:
+    int candy(vector<int>& ratings) {
+        int n = ratings.size();
+        vector<int> left(n);
+        for (int i = 0; i < n; i++) {
+            if (i > 0 && ratings[i] > ratings[i - 1]) {
+                left[i] = left[i - 1] + 1;
+            } else {
+                left[i] = 1;
+            }
+        }
+        int right = 0, ret = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            if (i < n - 1 && ratings[i] > ratings[i + 1]) {
+                right++;
+            } else {
+                right = 1;
+            }
+            ret += max(left[i], right);
+        }
+        return ret;
+    }
+};
+```
+
+## 模糊坐标
+
+### 遍历枚举
+
+![1667819347019](C:\Users\msi-user\AppData\Roaming\Typora\typora-user-images\1667819347019.png)
+
+```C++
+class Solution {
+public:
+    vector<string> getPos(string s) {
+        vector<string> pos;
+        if (s[0] != '0' || s == "0") pos.push_back(s);
+        for (int p = 1; p < s.size(); ++p) {
+            if ((p != 1 && s[0] == '0') || s.back() == '0') continue;
+            pos.push_back(s.substr(0, p) + "." + s.substr(p));
+        }
+        return pos;
+    }
+    vector<string> ambiguousCoordinates(string s) {
+        int n = s.size() - 2;
+        vector<string> res;
+        s = s.substr(1, s.size() - 2);
+        for (int l = 1; l < n; ++l) {
+            vector<string> lt = getPos(s.substr(0, l));
+            if (lt.empty()) continue;
+            vector<string> rt = getPos(s.substr(l));
+            if (rt.empty()) continue;
+            for (auto& i : lt) {
+                for (auto& j : rt) {
+                    res.push_back("(" + i + ", " + j + ")");
+                }
+            }
+        }
+        return res;
     }
 };
 ```

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/maxRepeating/maxRepeating.cpp
+maxRepeating.h
+C:/Users/msi-user/Desktop/leetcode/maxRepeating/maxRepeating.h
+
+C:/Users/msi-user/Desktop/leetcode/maxRepeating/maxRepeating.h
+string
+C:/Users/msi-user/Desktop/leetcode/maxRepeating/string
+vector
+C:/Users/msi-user/Desktop/leetcode/maxRepeating/vector
+

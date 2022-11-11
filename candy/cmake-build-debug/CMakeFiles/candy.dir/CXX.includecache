@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/msi-user/Desktop/leetcode/candy/candy.cpp
+candy.h
+C:/Users/msi-user/Desktop/leetcode/candy/candy.h
+
+C:/Users/msi-user/Desktop/leetcode/candy/candy.h
+numeric
+-
+vector
+C:/Users/msi-user/Desktop/leetcode/candy/vector
+
